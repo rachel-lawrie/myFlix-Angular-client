@@ -28,6 +28,9 @@ export class BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UserRegistrationService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
@@ -41,6 +44,9 @@ export class UserRegistrationService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UserLoginService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -51,11 +57,14 @@ export class UserLoginService extends BaseService {
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http
-      .post(apiUrl + 'users', userDetails)
+      .post(apiUrl + 'login', userDetails)
       .pipe(catchError(this.handleError));
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetAllMoviesService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -68,6 +77,9 @@ export class GetAllMoviesService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetMovieService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -82,6 +94,9 @@ export class GetMovieService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetDirectorService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -96,6 +111,9 @@ export class GetDirectorService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetGenreInfoService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -110,6 +128,9 @@ export class GetGenreInfoService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetIndvUserService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -124,6 +145,9 @@ export class GetIndvUserService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GetUserFavorites extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -137,6 +161,9 @@ export class GetUserFavorites extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class AddToFavorites extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -150,6 +177,9 @@ export class AddToFavorites extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class EditUserService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -165,6 +195,9 @@ export class EditUserService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class DeleteUserService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -179,6 +212,9 @@ export class DeleteUserService extends BaseService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class DeleteFromFavorites extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
