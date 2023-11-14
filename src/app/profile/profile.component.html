@@ -1,0 +1,23 @@
+<!-- src/app/profile/profile.component.html -->
+
+<div class="main-page">
+  <h1>Profile</h1>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Username: {{ user.Username }}</mat-card-title>
+      <mat-card-subtitle>Email: {{ user.Email }}</mat-card-subtitle>
+      <mat-card-subtitle
+        >Birthday: {{ user.Birthday | date : "longDate" }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content> </mat-card-content>
+    <button
+      mat-raised-button
+      (click)="openEditProfileDialog()"
+      style="margin-right: 10px"
+      color="primary"
+    >
+      Edit profile
+    </button>
+  </mat-card>
+</div>

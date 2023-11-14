@@ -16,7 +16,7 @@ const apiUrl = 'https://lawrie-myflix.herokuapp.com/';
 export class BaseService {
   constructor(protected http: HttpClient) {}
 
-  protected handleError(error: HttpErrorResponse): Observable<never> {
+  protected handleError(error: HttpErrorResponse): Observable<any> {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
@@ -73,7 +73,25 @@ export class GetAllMoviesService extends BaseService {
   }
   // Making the api call to get all movies
   getAllMovies(): Observable<any> {
-    return this.http.get(apiUrl + 'movies').pipe(catchError(this.handleError));
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token exists in local storage
+    if (!token) {
+      // Handle the case where the token is missing or not available
+      return throwError('Token is missing or not available');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Use "Bearer" prefix for JWT token
+    });
+
+    // Add the headers to the HTTP options
+    const options = { headers: headers };
+
+    // Make the API call with the modified options
+    return this.http
+      .get(apiUrl + 'movies', options)
+      .pipe(catchError(this.handleError));
   }
 }
 
@@ -186,11 +204,23 @@ export class EditUserService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call for the user registration endpoint
-  public editUser(userDetails: any): Observable<any> {
-    console.log(userDetails);
+  // Making the api call for the user edit endpoint
+  public editUser(username: string, userDetails: any): Observable<any> {
+    // Get the JWT token from wherever it is stored in your application (e.g., local storage)
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      // Handle the case where the token is missing or not available
+      return throwError('Token is missing or not available');
+    }
+
+    // Set the Authorization header with the token
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     return this.http
-      .put(apiUrl + 'users', userDetails)
+      .put(apiUrl + 'users/' + username, userDetails, { headers })
       .pipe(catchError(this.handleError));
   }
 }
