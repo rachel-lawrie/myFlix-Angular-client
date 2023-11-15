@@ -263,9 +263,9 @@ export class DeleteFromFavorites extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  DeleteFavorite(userName: string, movieName: string): Observable<any> {
+  public deleteFavorite(username: string, movieID: string): Observable<any> {
     return this.http
-      .delete(apiUrl + 'users/' + userName + '/movies/' + movieName, {})
+      .delete(apiUrl + 'users/' + username + '/movies/' + movieID, {})
       .pipe(catchError(this.handleError));
   }
 }

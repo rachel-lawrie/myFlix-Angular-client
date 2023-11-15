@@ -1,6 +1,10 @@
 // src/app/movie-card/movie-card.component.ts
 import { Component, OnInit } from '@angular/core';
-import { AddToFavorites, GetAllMoviesService } from '../fetch-api-data.service';
+import {
+  AddToFavorites,
+  DeleteFromFavorites,
+  GetAllMoviesService,
+} from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SynopsisComponent } from '../synopsis/synopsis.component';
 import { DirectorComponent } from '../director/director.component';
@@ -20,6 +24,7 @@ export class MovieCardComponent {
   constructor(
     public getAllMoviesService: GetAllMoviesService,
     public addToFavorites: AddToFavorites,
+    public deleteFromFavorites: DeleteFromFavorites,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private userDataService: UserDataService
@@ -74,24 +79,49 @@ export class MovieCardComponent {
   favoriteMovie(movie: any): void {
     const username = this.user ? this.user.Username : null;
     const movieID = movie._id;
-    this.addToFavorites.addFavorite(username, movieID).subscribe(
-      (response) => {
-        console.log('API Response:', response);
-        this.snackBar.open('Movie added to favorites', 'OK', {
-          duration: 2000,
-        });
-        // Update the user's favorites in UserDataService
-        this.user.Favorites.push(movieID);
-        this.userDataService.updateUser(this.user);
-        movie.isFavorited = true;
-      },
-      (error) => {
-        // Handle error response
-        console.error('Error adding movie to favorites:', error);
-        this.snackBar.open('Failed to add movie to favorites', 'OK', {
-          duration: 2000,
-        });
-      }
-    );
+
+    if (this.user.Favorites.includes(movieID)) {
+      this.deleteFromFavorites.deleteFavorite(username, movieID).subscribe(
+        (response) => {
+          console.log('Movie removed from favorites:', response);
+          this.snackBar.open('Movie removed from favorites', 'OK', {
+            duration: 2000,
+          });
+          // Update the user's favorites in UserDataService
+          const index = this.user.Favorites.indexOf(movieID);
+          if (index > -1) {
+            this.user.Favorites.splice(index, 1); // Remove the movie from favorites
+          }
+          this.userDataService.updateUser(this.user);
+          movie.isFavorited = false; // Update local state
+        },
+        (error) => {
+          console.error('Error removing movie from favorites:', error);
+          this.snackBar.open('Failed to remove movie from favorites', 'OK', {
+            duration: 2000,
+          });
+        }
+      );
+    } else {
+      this.addToFavorites.addFavorite(username, movieID).subscribe(
+        (response) => {
+          console.log('API Response:', response);
+          this.snackBar.open('Movie added to favorites', 'OK', {
+            duration: 2000,
+          });
+          // Update the user's favorites in UserDataService
+          this.user.Favorites.push(movieID);
+          this.userDataService.updateUser(this.user);
+          movie.isFavorited = true;
+        },
+        (error) => {
+          // Handle error response
+          console.error('Error adding movie to favorites:', error);
+          this.snackBar.open('Failed to add movie to favorites', 'OK', {
+            duration: 2000,
+          });
+        }
+      );
+    }
   }
 }
