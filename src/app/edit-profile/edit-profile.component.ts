@@ -54,10 +54,10 @@ export class EditProfileComponent {
     const username = this.user ? this.user.Username : null;
     this.fetchApiData.editUser(username, this.userData).subscribe(
       (response) => {
-        // Logic for a successful user registration goes here! (To be implemented)
+        console.log('API Response:', response);
         const { user } = response;
-        // Store the user and token in local storage
-        localStorage.setItem('user', JSON.stringify(user));
+        // Update local storage w/ updated user info
+        localStorage.setItem('user', JSON.stringify(response));
 
         this.dialogRef.close(); // This will close the modal on success!
         this.snackBar.open('User information updated', 'OK', {

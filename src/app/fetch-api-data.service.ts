@@ -188,9 +188,21 @@ export class AddToFavorites extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  AddFavorite(userName: string, movieName: string): Observable<any> {
+  public addFavorite(username: string, movieID: string): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      // Handle the case where the token is missing or not available
+      return throwError('Token is missing or not available');
+    }
+
+    // Set the Authorization header with the token
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     return this.http
-      .post(apiUrl + 'users/' + userName + '/movies/' + movieName, {})
+      .post(apiUrl + 'users/' + username + '/movies/' + movieID, { headers })
       .pipe(catchError(this.handleError));
   }
 }

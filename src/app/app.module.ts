@@ -23,6 +23,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SynopsisComponent } from './synopsis/synopsis.component';
+import { DirectorComponent } from './director/director.component';
+import { GenreComponent } from './genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     NavbarComponent,
     ProfileComponent,
     EditProfileComponent,
+    SynopsisComponent,
+    DirectorComponent,
+    GenreComponent,
   ],
   imports: [
     BrowserModule,
