@@ -26,6 +26,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SynopsisComponent } from './synopsis/synopsis.component';
 import { DirectorComponent } from './director/director.component';
 import { GenreComponent } from './genre/genre.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { GenreComponent } from './genre/genre.component';
     SynopsisComponent,
     DirectorComponent,
     GenreComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,

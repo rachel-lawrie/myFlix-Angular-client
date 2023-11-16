@@ -1,5 +1,5 @@
 // src/app/movie-card/movie-card.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AddToFavorites,
   DeleteFromFavorites,
@@ -20,7 +20,7 @@ import { UserDataService } from '../services/user-data.service';
 export class MovieCardComponent {
   user: any;
 
-  movies: any[] = [];
+  @Input() movies: any[] = [];
   constructor(
     public getAllMoviesService: GetAllMoviesService,
     public addToFavorites: AddToFavorites,
@@ -31,7 +31,9 @@ export class MovieCardComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getMovies();
+    if (!this.movies || this.movies.length === 0) {
+      this.getMovies();
+    }
     this.userDataService.getUser().subscribe((user) => {
       this.user = user;
       this.updateFavoriteStatus();
