@@ -126,4 +126,22 @@ export class MovieCardComponent {
       );
     }
   }
+
+  scrollLeft(): void {
+    const container = document.querySelector(
+      '.movies-scrollable'
+    ) as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(): void {
+    const container = document.querySelector(
+      '.movies-scrollable'
+    ) as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  }
 }

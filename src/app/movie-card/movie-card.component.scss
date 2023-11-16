@@ -1,0 +1,41 @@
+.movies-page-title {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.movie-container {
+  position: relative;
+  margin: 0 20px;
+  overflow: hidden;
+}
+
+.movies-scrollable {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+  margin: 0 30px;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+mat-card {
+  margin: 5px;
+}
