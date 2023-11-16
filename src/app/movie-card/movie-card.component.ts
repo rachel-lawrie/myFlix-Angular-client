@@ -11,6 +11,7 @@ import { DirectorComponent } from '../director/director.component';
 import { GenreComponent } from '../genre/genre.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDataService } from '../services/user-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -19,6 +20,7 @@ import { UserDataService } from '../services/user-data.service';
 })
 export class MovieCardComponent {
   user: any;
+  currentRoute: string = '';
 
   @Input() movies: any[] = [];
   constructor(
@@ -27,10 +29,15 @@ export class MovieCardComponent {
     public deleteFromFavorites: DeleteFromFavorites,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.url.subscribe((url) => {
+      this.currentRoute = url[0].path;
+    });
+
     if (!this.movies || this.movies.length === 0) {
       this.getMovies();
     }

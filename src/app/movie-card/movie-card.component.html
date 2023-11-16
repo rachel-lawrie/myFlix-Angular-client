@@ -1,5 +1,8 @@
 <!-- src/app/movie-card/movie-card.component.html -->
-<div class="movies-page-title"><h1>Movies</h1></div>
+<div class="movies-page-title">
+  <h1 *ngIf="currentRoute === 'movies'">Movies</h1>
+  <h1 *ngIf="currentRoute === 'favorites'">Favorites</h1>
+</div>
 <div class="movie-container">
   <button class="scroll-arrow left-arrow" (click)="scrollLeft()">&lt;</button>
   <div class="movies-scrollable">
