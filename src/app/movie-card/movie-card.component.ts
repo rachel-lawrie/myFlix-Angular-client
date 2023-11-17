@@ -13,6 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDataService } from '../services/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 
+/**
+ * Component to display movie cards.
+ * Includes functionality for viewing movie synopses, directors, and genres.
+ * Allows users to add or remove movies from their favorites list.
+ */
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -33,6 +38,10 @@ export class MovieCardComponent {
     private route: ActivatedRoute
   ) {}
 
+  /**
+   * OnInit lifecycle hook to initialize component's data.
+   * Subscribes to route changes and loads movies if not provided as input.
+   */
   ngOnInit(): void {
     this.route.url.subscribe((url) => {
       this.currentRoute = url[0].path;
@@ -47,6 +56,9 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Fetches movies from the GetAllMoviesService and updates the movie list.
+   */
   getMovies(): void {
     this.getAllMoviesService.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -56,6 +68,9 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Updates the favorite status of movies based on the user's favorites.
+   */
   updateFavoriteStatus(): void {
     if (this.user && this.movies) {
       this.movies.forEach((movie) => {
@@ -64,6 +79,10 @@ export class MovieCardComponent {
     }
   }
 
+  /**
+   * Opens a dialog to display the movie's synopsis.
+   * @param movie - The movie data for which the synopsis is shown.
+   */
   openSynopsisDialog(movie: any): void {
     this.dialog.open(SynopsisComponent, {
       width: '280px',
@@ -71,6 +90,10 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Opens a dialog to display the movie's director information.
+   * @param movie - The movie data for which the director information is shown.
+   */
   openDirectorDialog(movie: any): void {
     this.dialog.open(DirectorComponent, {
       width: '280px',
@@ -78,6 +101,10 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Opens a dialog to display the movie's genre information.
+   * @param movie - The movie data for which the genre information is shown.
+   */
   openGenreDialog(movie: any): void {
     this.dialog.open(GenreComponent, {
       width: '280px',
@@ -85,6 +112,10 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Adds or removes a movie from the user's favorites list.
+   * @param movie - The movie to be added or removed from favorites.
+   */
   favoriteMovie(movie: any): void {
     const username = this.user ? this.user.Username : null;
     const movieID = movie._id;

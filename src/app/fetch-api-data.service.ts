@@ -1,3 +1,7 @@
+/**
+ * Service classes for interacting with the myflix API.
+ * Includes services for user registration, login, movie information retrieval, and user profile management.
+ */
 import { Injectable } from '@angular/core';
 
 import {
@@ -10,6 +14,10 @@ import { catchError, map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://lawrie-myflix.herokuapp.com/';
+/**
+ * Base service class providing common functionalities to other services.
+ * Includes error handling for HTTP requests.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +36,10 @@ export class BaseService {
   }
 }
 
+/**
+ * Service for handling user registration.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +47,11 @@ export class UserRegistrationService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call for the user registration endpoint
+  /**
+   * Registers a new user with the provided details.
+   * @param userDetails - Object containing the new user's registration details.
+   * @returns Observable from the HTTP POST request.
+   */
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http
@@ -44,6 +60,10 @@ export class UserRegistrationService extends BaseService {
   }
 }
 
+/**
+ * Service for handling user login.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -53,7 +73,11 @@ export class UserLoginService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call for the user login endpoint
+  /**
+   * Logs in a user with the provided details.
+   * @param userDetails - Object containing the user's login credentials.
+   * @returns Observable from the HTTP POST request.
+   */
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http
@@ -62,6 +86,10 @@ export class UserLoginService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving all movies from the API.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -71,7 +99,11 @@ export class GetAllMoviesService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call to get all movies
+  /**
+   * Retrieves a list of all movies.
+   * Requires a valid JWT token for authorization.
+   * @returns Observable from the HTTP GET request.
+   */
   getAllMovies(): Observable<any> {
     // Retrieve the token from local storage
     const token = localStorage.getItem('token');
@@ -95,6 +127,10 @@ export class GetAllMoviesService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving details of a specific movie.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -104,7 +140,11 @@ export class GetMovieService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call to get all movies
+  /**
+   * Retrieves details for a specific movie by title.
+   * @param movieTitle - Title of the movie to retrieve.
+   * @returns Observable from the HTTP GET request.
+   */
   getMovie(movieTitle: string): Observable<any> {
     return this.http
       .get(apiUrl + 'movies/' + movieTitle)
@@ -112,6 +152,10 @@ export class GetMovieService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving information about a specific director.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -121,7 +165,11 @@ export class GetDirectorService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call to get all movies
+  /**
+   * Retrieves details for a specific director by name.
+   * @param directorName - Name of the director to retrieve.
+   * @returns Observable from the HTTP GET request.
+   */
   getDirector(directorName: string): Observable<any> {
     return this.http
       .get(apiUrl + 'directors/' + directorName)
@@ -129,6 +177,10 @@ export class GetDirectorService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving information about a specific movie genre.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -138,7 +190,11 @@ export class GetGenreInfoService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call to get all movies
+  /**
+   * Retrieves details for a specific genre by name.
+   * @param genreName - Name of the genre to retrieve.
+   * @returns Observable from the HTTP GET request.
+   */
   getGenre(genreName: string): Observable<any> {
     return this.http
       .get(apiUrl + 'genres/' + genreName)
@@ -146,6 +202,10 @@ export class GetGenreInfoService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving details of an individual user.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -155,7 +215,11 @@ export class GetIndvUserService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call to get all movies
+  /**
+   * Retrieves details for a specific user by username.
+   * @param userName - Username of the user to retrieve.
+   * @returns Observable from the HTTP GET request.
+   */
   getUser(userName: string): Observable<any> {
     return this.http
       .get(apiUrl + 'users/' + userName)
@@ -163,6 +227,10 @@ export class GetIndvUserService extends BaseService {
   }
 }
 
+/**
+ * Service for retrieving a user's favorite movies.
+ * Extends BaseService to utilize common functionalities.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -172,6 +240,11 @@ export class GetUserFavorites extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
+  /**
+   * Retrieves a list of favorite movies for a specific user.
+   * @param userName - Username of the user whose favorites are to be retrieved.
+   * @returns Observable from the HTTP GET request.
+   */
   getUserFavorites(userName: string): Observable<any> {
     return this.http
       .get(apiUrl + 'users/' + userName + '/movies')
@@ -179,6 +252,10 @@ export class GetUserFavorites extends BaseService {
   }
 }
 
+/**
+ * Service for adding a movie to a user's list of favorites.
+ * Extends BaseService to utilize common functionalities, particularly for handling HTTP requests.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -188,6 +265,13 @@ export class AddToFavorites extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
+  /**
+   * Adds a specified movie to a user's favorite list.
+   * Requires authentication via JWT token stored in local storage.
+   * @param username - The username of the user.
+   * @param movieID - The ID of the movie to be added to favorites.
+   * @returns Observable from the HTTP POST request.
+   */
   public addFavorite(username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
 
@@ -207,6 +291,10 @@ export class AddToFavorites extends BaseService {
   }
 }
 
+/**
+ * Service for editing user details.
+ * Inherits common HTTP functionalities from BaseService.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -216,7 +304,13 @@ export class EditUserService extends BaseService {
   constructor(http: HttpClient) {
     super(http);
   }
-  // Making the api call for the user edit endpoint
+  /**
+   * Edits details of an existing user.
+   * Requires a valid JWT token for authentication.
+   * @param username - Username of the user to be edited.
+   * @param userDetails - Object containing the updated user details.
+   * @returns Observable from the HTTP PUT request.
+   */
   public editUser(username: string, userDetails: any): Observable<any> {
     // Get the JWT token from wherever it is stored in your application (e.g., local storage)
     const token = localStorage.getItem('token');
@@ -237,9 +331,18 @@ export class EditUserService extends BaseService {
   }
 }
 
+/**
+ * Service for deleting a user.
+ * Inherits common functionalities from BaseService, especially for HTTP operations.
+ */
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Deletes a user from the system.
+ * @param userName - The username of the user to be deleted.
+ * @returns Observable from the HTTP DELETE request.
+ */
 export class DeleteUserService extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -254,9 +357,19 @@ export class DeleteUserService extends BaseService {
   }
 }
 
+/**
+ * Service for removing a movie from a user's list of favorites.
+ * Utilizes BaseService for common HTTP request handling.
+ */
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Removes a specified movie from a user's favorites.
+ * @param username - The username of the user.
+ * @param movieID - The ID of the movie to be removed from favorites.
+ * @returns Observable from the HTTP DELETE request.
+ */
 export class DeleteFromFavorites extends BaseService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http

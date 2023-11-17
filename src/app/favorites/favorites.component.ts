@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GetAllMoviesService } from '../fetch-api-data.service';
 import { UserDataService } from '../services/user-data.service';
 
+/**
+ * FavoritesComponent represents the user favorites view in the application.
+ * It provides functionalities for displaying and editing user favorites.
+ */
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
